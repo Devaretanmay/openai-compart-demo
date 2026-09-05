@@ -7,7 +7,7 @@ function getOpenAIClient(apiKey = "mock-api-key") {
       return new OpenAI({ apiKey });
     }
   } catch (e) {}
-  const config = new Configuration({ apiKey });
+  const config = new OpenAI({ apiKey });
   return new OpenAIApi(config);
 }
 
@@ -17,12 +17,15 @@ class ChatService {
   }
 
   async sendPrompt(prompt, model = "gpt-3.5-turbo") {
-    const response = await this.client.createChatCompletion({
+    const response = await this.client.chat.completions.create({
       model,
       messages: [{ role: "user", content: prompt }],
       temperature: 0.7,
     });
-    return response.data?.choices?.[0]?.message?.content || response.choices?.[0]?.message?.content;
+    return (
+      response.data?.choices?.[0]?.message?.content ||
+      response.choices?.[0]?.message?.content
+    );
   }
 }
 
