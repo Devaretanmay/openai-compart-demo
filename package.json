@@ -7,6 +7,6 @@
     "test": "node --test test/chat.test.js"
   },
   "dependencies": {
-    "openai": "^3.3.0"
+    "openai": "^4.0.0"
   }
 }
